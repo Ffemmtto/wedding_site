@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div style="height: 100vh; display:flex; align-items:center; justify-content:center; padding: 20px;">
+    <div class="glass-panel text-center" style="padding: 40px 20px; width: 100%;">
+        <h2 class="section-heading">Вход Организатора</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Логин (Superuser)" required class="w-100 mb-3" style="padding:15px; border-radius:8px; border:1px solid #ddd;">
+            <input type="password" name="password" placeholder="Пароль" required class="w-100 mb-3" style="padding:15px; border-radius:8px; border:1px solid #ddd;">
+            <button type="submit" class="btn dark-btn w-100">Войти</button>
+            {% if error %}<p style="color:red; margin-top:15px; font-size: 0.9rem;">{{ error }}</p>{% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="content-body" style="min-height: 100vh;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h2 class="section-heading" style="margin: 0;">Дашборд</h2>
+        <a href="/" class="btn transparent-btn" style="padding: 10px 15px; font-size: 0.7rem;">На сайт</a>
+    </div>
+    
+    <!-- Калькулятор гостей -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 40px;">
+        <div class="glass-panel text-center" style="padding: 20px;">
+            <h2 style="font-size: 2.5rem; font-family: var(--font-heading); color:#222;">{{ stats.total }}</h2>
+            <p style="font-size: 0.75rem; color: var(--gray); text-transform: uppercase;">Всего ответов</p>
+        </div>
+        <div class="glass-panel text-center" style="padding: 20px;">
+            <h2 style="font-size: 2.5rem; font-family: var(--font-heading); color:#2e7d32;">{{ stats.alone }}</h2>
+            <p style="font-size: 0.75rem; color: var(--gray); text-transform: uppercase;">Придут одни</p>
+        </div>
+        <div class="glass-panel text-center" style="padding: 20px;">
+            <h2 style="font-size: 2.5rem; font-family: var(--font-heading); color:#1565c0;">{{ stats.spouse }}</h2>
+            <p style="font-size: 0.75rem; color: var(--gray); text-transform: uppercase;">С супругом/ой</p>
+        </div>
+        <div class="glass-panel text-center" style="padding: 20px;">
+            <h2 style="font-size: 2.5rem; font-family: var(--font-heading); color:#c62828;">{{ stats.no }}</h2>
+            <p style="font-size: 0.75rem; color: var(--gray); text-transform: uppercase;">Не придут</p>
+        </div>
+    </div>
+
+    <!-- Таблица гостей -->
+    <h3 class="section-heading" style="font-size: 1.3rem;">Список гостей</h3>
+    <div class="glass-panel" style="overflow-x: auto; margin-bottom: 40px; padding: 10px;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+            <tr style="border-bottom: 2px solid #eee;">
+                <th style="padding: 12px;">Имя</th>
+                <th style="padding: 12px;">Статус</th>
+            </tr>
+            {% for g in guests %}
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 12px;">{{ g.first_name }} {{ g.last_name }}</td>
+                <!-- Условие вынесено за пределы атрибута style, чтобы редактор не ругался -->
+                {% if g.status == 'alone' or g.status == 'spouse' %}
+                    <td style="padding: 12px; color: green;">{{ g.get_status_display }}</td>
+                {% else %}
+                    <td style="padding: 12px; color: red;">{{ g.get_status_display }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Управление пожеланиями -->
+    <h3 class="section-heading" style="font-size: 1.3rem;">Пожелания</h3>
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+        {% for w in wishes %}
+        <div class="glass-panel" style="padding: 20px;">
+            <p style="margin-bottom: 10px;"><strong>{{ w.name }}:</strong> {{ w.text }}</p>
+            <div style="display: flex; gap: 10px;">
+                <a href="{% url 'edit_wish' w.id %}" class="btn dark-btn" style="padding: 8px 15px; font-size: 0.7rem; flex: 1;">Изменить</a>
+                <a href="{% url 'delete_wish' w.id %}" class="btn transparent-btn" style="padding: 8px 15px; font-size: 0.7rem; flex: 1; border-color: red; color: red;" onclick="return confirm('Точно удалить?')">Удалить</a>
+            </div>
+        </div>
+        {% empty %}
+        <p>Пока нет пожеланий.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- ================= OPEN GRAPH (ДЛЯ МЕССЕНДЖЕРОВ) ================= -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Приглашение на свадьбу | Шахрияр & Ихсана">
+    <meta property="og:description" content="Шахрияр и Ихсана с радостью приглашают вас стать частью особенного дня — дня их свадьбы. 20 Ноября 2026 года.">
+    <!-- Автоматическая подстановка полного URL для картинки (важно для WhatsApp) -->
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/og_banner.jpg' %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    
+    <!-- Дополнительные теги для Telegram, Twitter, iMessage -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Приглашение на свадьбу | Шахрияр & Ихсана">
+    <meta name="twitter:description" content="Шахрияр и Ихсана приглашают вас разделить с ними этот особенный день. 20 Ноября 2026 года.">
+    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/og_banner.jpg' %}">
+    <!-- ================================================================= -->
+
+    <title>Свадьба | Шахрияр & Ихсана</title>
+    
+    <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
+
+    <!-- Подключение шрифтов (Alex Brush для имен - каллиграфия) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-butterflies: url('{% static "img/bg_butterflies.jpg" %}');
+            --bg-table: url('{% static "img/bg_table.jpg" %}');
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% csrf_token %}
+    <div class="app-wrapper">
+        {% block content %}{% endblock %}
+    </div>
+    <button id="music-btn" class="music-btn pulse-anim">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+    </button>
+    <audio id="bg-music" loop><source src="{% static 'music/track.mp3' %}" type="audio/mpeg"></audio>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

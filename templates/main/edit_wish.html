@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="content-body" style="min-height: 100vh;">
+    <h2 class="section-heading">Редактировать пожелание</h2>
+    <div class="glass-panel" style="padding: 20px;">
+        <form method="POST">
+            {% csrf_token %}
+            <p style="margin-bottom: 10px;"><strong>Автор:</strong> {{ wish.name }}</p>
+            <textarea name="text" rows="5" required style="width: 100%; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px; font-family: var(--font-body);">{{ wish.text }}</textarea>
+            <button type="submit" class="btn dark-btn w-100">Сохранить изменения</button>
+            <a href="{% url 'dashboard' %}" class="btn transparent-btn w-100 mt-3">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

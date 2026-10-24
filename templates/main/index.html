@@ -1,0 +1,137 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- ИСПРАВЛЕННЫЙ КОНВЕРТ (Абсолютно физически корректный) -->
+<div id="envelope-screen">
+    <div class="envelope-wrapper" id="open-envelope-btn">
+        <div class="envelope">
+            <div class="env-back"></div>
+            <!-- Письмо внутри -->
+            <div class="letter">
+                <p>Приглашение</p>
+                <span class="letter-names">Шахрияр & Ихсана</span>
+            </div>
+            <div class="env-front"></div>
+            <div class="flap"></div>
+            <div class="wax-seal">Ш&И</div>
+        </div>
+        <p class="click-hint">Коснитесь конверта</p>
+    </div>
+</div>
+
+<div id="main-content" class="hidden main-container">
+    <header class="hero fade-in-onload">
+        <div class="hero-oval glass-panel">
+            <h1 class="names">Шахрияр<br><span class="names-and">&</span><br>Ихсана</h1>
+            <p class="subtitle">Приглашение на свадьбу</p>
+        </div>
+    </header>
+
+    <div class="content-body">
+        <img src="{% static 'img/petal.png' %}" class="decor-petal petal-1" alt="">
+        <img src="{% static 'img/petal.png' %}" class="decor-petal petal-2" alt="">
+
+        <section class="section text-center anim-on-scroll">
+            <h2 class="section-heading">Уважаемые гости</h2>
+            <p class="main-text">
+                Шахрияр и Ихсана с радостью приглашают вас стать частью особенного дня — дня их свадьбы.<br><br>
+                В этот важный и трогательный момент они хотят быть окружены самыми близкими и дорогими людьми, чтобы вместе разделить радость, улыбки и искренние эмоции.
+            </p>
+            <img src="{% static 'img/roses_cluster.png' %}" class="decor-img" alt="">
+        </section>
+
+        <section class="section text-center anim-on-scroll">
+            <h2 class="section-heading">Дата проведения</h2>
+            <h3 class="month-title">НОЯБРЬ 2026</h3>
+            <div class="calendar glass-panel">
+                <div class="cal-days"><span>ПН</span><span>ВТ</span><span>СР</span><span>ЧТ</span><span>ПТ</span><span>СБ</span><span>ВС</span></div>
+                <div class="cal-numbers">
+                    <span></span><span></span><span></span><span></span><span></span><span></span><span>1</span>
+                    <span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
+                    <span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+                    <span>16</span><span>17</span><span>18</span><span>19</span><span class="highlight-date">20</span><span>21</span><span>22</span>
+                    <span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span>
+                    <span>30</span>
+                </div>
+            </div>
+            <div class="time-box glass-panel mt-4">НАЧАЛО <span>17:00</span></div>
+        </section>
+
+        <section class="section text-center anim-on-scroll">
+            <img src="{% static 'img/rose_single.png' %}" class="decor-img-small" alt="">
+            <h2 class="section-heading">Наш адрес</h2>
+            <p class="address-text">АЛМАТЫ</p>
+            <p class="main-text" style="margin-top:0;">Кульджинский тракт, 39/2<br>Ресторанный комплекс "Royal Hall"</p>
+            
+            <div class="map-container mt-3 glass-panel" style="padding: 5px;">
+                <div id="map" style="width:100%; height:300px; border-radius: 8px;"></div>
+            </div>
+            <a href="https://2gis.kz/almaty/geo/70000001093728642/77.035326,43.329644" target="_blank" class="btn dark-btn mt-4 w-100">Открыть в 2GIS</a>
+        </section>
+
+        <img src="{% static 'img/roses_divider.png' %}" class="divider-img anim-on-scroll" alt="">
+
+        <section class="section text-center anim-on-scroll">
+            <p class="main-text">С УВАЖЕНИЕМ,<br>ШАХРИЯР И ИХСАНА</p>
+            <h2 class="section-heading mt-4">Просим подтвердить присутствие</h2>
+            
+            <form id="rsvp-form" class="custom-form glass-panel mt-3">
+                <div class="input-row">
+                    <input type="text" id="guest_first" placeholder="Имя" required>
+                    <input type="text" id="guest_last" placeholder="Фамилия" required>
+                </div>
+                <div class="radio-wrapper">
+                    <label class="radio-label">
+                        <input type="radio" name="status" value="alone" required>
+                        <span class="custom-radio"></span> Да, приду один
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="status" value="spouse">
+                        <span class="custom-radio"></span> С супругой/ом
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="status" value="no">
+                        <span class="custom-radio"></span> Не смогу прийти
+                    </label>
+                </div>
+                <button type="submit" class="btn dark-btn w-100 mt-3">Отправить</button>
+                <p class="form-msg" id="rsvp-msg"></p>
+            </form>
+        </section>
+
+        <section class="section anim-on-scroll">
+            <h2 class="section-heading text-center">Теплые пожелания</h2>
+            <form id="wish-form" class="custom-form glass-panel mb-4">
+                <input type="text" id="wish_name" placeholder="Ваше Имя" required>
+                <textarea id="wish_text" rows="3" placeholder="Напишите пожелание..." required></textarea>
+                <button type="submit" class="btn transparent-btn w-100">Отправить</button>
+                <p class="form-msg" id="wish-msg"></p>
+            </form>
+
+            <div class="wishes-list" id="wishes-container">
+                {% for wish in wishes %}
+                <div class="wish-item glass-panel anim-on-scroll">
+                    <div class="wish-quotes">"</div>
+                    <p class="wish-text">{{ wish.text }}</p>
+                    <p class="wish-author">— {{ wish.name }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- ТАЙМЕР В ЦЕНТРЕ ФУТЕРА -->
+        <section class="timer-section text-center anim-on-scroll">
+            <div class="timer-content-wrapper glass-panel">
+                <h2 class="section-heading" style="color: #333;">СОБЫТИЕ НАСТУПИТ ЧЕРЕЗ</h2>
+                <div class="timer-grid" id="countdown">
+                    <div><span id="days">00</span><p>Дней</p></div>
+                    <div><span id="hours">00</span><p>Часов</p></div>
+                    <div><span id="minutes">00</span><p>Минут</p></div>
+                    <div><span id="seconds">00</span><p>Секунд</p></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
